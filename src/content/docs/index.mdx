@@ -1,14 +1,14 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Bienvenido a CodeC Leaguje
+description: CodeC League es una plataforma de competencias de programación en línea para estudiantes de secundaria y preparatoria.
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: CodeC League es una plataforma de competencias de programación en línea para estudiantes de secundaria y preparatoria.
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/code-c-logo.svg
   actions:
     - text: Example Guide
-      link: /guides/example/
+      link: /01-get-started-with-c/01-intro/
       icon: right-arrow
     - text: Read the Starlight docs
       link: https://starlight.astro.build
@@ -34,3 +34,11 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 		Learn more in [the Starlight Docs](https://starlight.astro.build/).
 	</Card>
 </CardGrid>
+
+import AllDocs from '../../components/AllDocs.astro';
+
+## Documentación
+
+<Card title='Temario de la guia' icon='open-book'>
+	<AllDocs />
+</Card>

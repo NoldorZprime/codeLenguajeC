@@ -1,0 +1,92 @@
+---
+import { getCollection } from "astro:content";
+import { sidebar } from "../config/sidebar"; // Importar el sidebar
+
+// Obtiene todo el contenido de la colección 'docs'
+const docs = await getCollection("docs");
+
+// Filtrar el contenido por subcarpetas usando autogenerate.directory
+const sections = sidebar.map((section) => {
+   return {
+      label: section.label,
+      docs: docs.filter(
+         (doc:any) =>
+            section.autogenerate &&
+            doc.id.startsWith(section.autogenerate.directory + "/"),
+      ),
+   };
+});
+---
+
+<ol class="list">
+   {
+      sections.map((section) => (
+        <hr/>
+        <li class="list-item">
+            <h4 style="font-size: 17px; color: var(--sl-color-gray-2);">{section.label}</h4>
+            <ol class="sub-list">
+               {section.docs.length > 0 ? (
+                  section.docs.map((doc:any) => (
+                     <li class="sub-list-item">
+                        <a href={`/${doc.id}`} class="link">
+                           {doc.data.title || doc.id}
+                        </a>
+                     </li>
+                  ))
+               ) : (
+                  <p>No hay documentos en esta sección.</p>
+               )}
+            </ol>
+        </li>
+      ))
+   }
+</ol>
+
+<style>
+   ol {
+      list-style: none;
+      counter-reset: item;
+      padding: 0;
+      margin: 10px 0;
+   }
+
+   li {
+      counter-increment: item;
+   }
+
+   li > ol {
+      counter-reset: subitem;
+   }
+
+   li > ol > li {
+      counter-increment: subitem;
+   }
+
+   @media (min-width: 768px) {
+      .sub-list {
+         column-count:2;
+         column-gap: 4rem;
+      }
+   }
+
+   @media (min-width: 992px) {
+      .sub-list {
+         column-count:3;
+         column-gap: 4rem;
+      }
+   }
+
+
+   .sub-list li a {
+      text-decoration: none;
+   }
+
+   .sub-list li a:hover {
+      text-decoration: underline;
+   }
+
+   .sub-list li::before {
+      content: counter(item) "." counter(subitem) " ";
+      margin-right: 10px;
+   }
+</style>
