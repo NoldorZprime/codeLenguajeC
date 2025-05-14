@@ -1,5 +1,5 @@
 ---
-title: Primer programa en C
+title: Estructura de un programa
 description: A reference page in my new Starlight docs site.
 ---
 
